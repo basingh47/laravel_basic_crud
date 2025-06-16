@@ -61,6 +61,7 @@
             padding-bottom: 60px;
         }
     </style>
+    @stack('style')  <!-- Here styles will be injected -->
 </head>
 
 <body>
@@ -97,7 +98,7 @@
 
     <!-- Bootstrap 5 JS Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
+    @stack('scripts') <!-- Here script will be injected -->
 </body>
 
 </html>

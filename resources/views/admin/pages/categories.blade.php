@@ -1,12 +1,12 @@
 @extends('admin.layouts.app')
 
+
 @section('content')
-    <!-- Recent Posts -->
     <div class="card mb-4">
         <div class="card-header d-flex justify-content-between align-items-center">
-            <h5 class="mb-0">Recent Posts</h5>
+            <h5 class="mb-0">Categories List</h5>
             <a href="{{ route('create-post') }}" class="btn btn-sm btn-primary">
-                Create New
+                Create New categories
             </a>
         </div>
         <div class="card-body">
@@ -14,18 +14,14 @@
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th>Title</th>
-                            <th>Categories</th>
-                            <th>Status</th>
-                            <th>Date</th>
+                            <th>Categories Name</th>
+                            <th>Date of Create</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td>Getting Started with Bootstrap 5</td>
-                            <td><span class="badge bg-primary">Web Design</span></td>
-                            <td><span class="badge bg-success">Published</span></td>
                             <td>May 15, 2023</td>
                             <td>
                                 <button class="btn btn-sm btn-outline-primary"><i class="bi bi-eye"></i></button>
@@ -35,20 +31,7 @@
                         </tr>
                         <tr>
                             <td>Advanced JavaScript Techniques</td>
-                            <td><span class="badge bg-info">JavaScript</span></td>
-                            <td><span class="badge bg-warning">Draft</span></td>
                             <td>May 10, 2023</td>
-                            <td>
-                                <button class="btn btn-sm btn-outline-primary"><i class="bi bi-eye"></i></button>
-                                <button class="btn btn-sm btn-outline-secondary"><i class="bi bi-pencil"></i></button>
-                                <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>CSS Grid Layout Tutorial</td>
-                            <td><span class="badge bg-primary">Web Design</span></td>
-                            <td><span class="badge bg-success">Published</span></td>
-                            <td>May 5, 2023</td>
                             <td>
                                 <button class="btn btn-sm btn-outline-primary"><i class="bi bi-eye"></i></button>
                                 <button class="btn btn-sm btn-outline-secondary"><i class="bi bi-pencil"></i></button>

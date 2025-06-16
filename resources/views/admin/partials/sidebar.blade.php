@@ -9,22 +9,22 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="{{ route('list-posts') }}">
                                 <i class="bi bi-file-earmark-post"></i> Posts
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="{{ route('categories') }}">
                                 <i class="bi bi-collection"></i> Categories
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="{{ route('tags') }}">
                                 <i class="bi bi-tags"></i> Tags
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="{{ route('settings') }}">
                                 <i class="bi bi-gear"></i> Settings
                             </a>
                         </li>
