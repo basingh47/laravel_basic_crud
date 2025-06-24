@@ -21,20 +21,6 @@
                                 <div class="row gy-3 overflow-hidden">
                                     <div class="col-12">
                                         <div class="form-floating mb-3">
-                                            <input type="text" class="form-control border-0 border-bottom rounded-0"
-                                                name="firstName" id="firstName" placeholder="First Name" required>
-                                            <label for="firstName" class="form-label">First Name</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="form-floating mb-3">
-                                            <input type="text" class="form-control border-0 border-bottom rounded-0"
-                                                name="lastName" id="lastName" placeholder="Last Name" required>
-                                            <label for="lastName" class="form-label">Last Name</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="form-floating mb-3">
                                             <input type="email" class="form-control border-0 border-bottom rounded-0"
                                                 name="email" id="email" placeholder="name@example.com" required>
                                             <label for="email" class="form-label">Email</label>
@@ -52,15 +38,14 @@
                                             <input class="form-check-input" type="checkbox" value="" name="iAgree"
                                                 id="iAgree" required>
                                             <label class="form-check-label text-secondary" for="iAgree">
-                                                I agree to the <a href="#!" class="link-primary text-decoration-none">terms
-                                                    and conditions</a>
+                                                 Remember Me<a href="#!" class="link-primary text-decoration-none"></a>
                                             </label>
                                         </div>
                                     </div>
                                     <div class="col-12">
                                         <div class="d-grid">
                                             <button class="btn btn-lg btn-dark rounded-0 fs-6" type="submit">Sign
-                                                up</button>
+                                                in</button>
                                         </div>
                                     </div>
                                 </div>

@@ -22,15 +22,8 @@
                                     <div class="col-12">
                                         <div class="form-floating mb-3">
                                             <input type="text" class="form-control border-0 border-bottom rounded-0"
-                                                name="firstName" id="firstName" placeholder="First Name" required>
-                                            <label for="firstName" class="form-label">First Name</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="form-floating mb-3">
-                                            <input type="text" class="form-control border-0 border-bottom rounded-0"
-                                                name="lastName" id="lastName" placeholder="Last Name" required>
-                                            <label for="lastName" class="form-label">Last Name</label>
+                                                name="userName" id="userName" placeholder="User Name" required>
+                                            <label for="userName" class="form-label">User Name</label>
                                         </div>
                                     </div>
                                     <div class="col-12">
@@ -45,6 +38,13 @@
                                             <input type="password" class="form-control border-0 border-bottom rounded-0"
                                                 name="password" id="password" value="" placeholder="Password" required>
                                             <label for="password" class="form-label">Password</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-floating mb-3">
+                                            <input type="password" class="form-control border-0 border-bottom rounded-0"
+                                                name="confirm_password" id="confirm_password" value="" placeholder="Confirm Password" required>
+                                            <label for="confirm_password" class="form-label">Confirm Password</label>
                                         </div>
                                     </div>
                                     <div class="col-12">
