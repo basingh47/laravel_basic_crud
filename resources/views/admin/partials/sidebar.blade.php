@@ -14,7 +14,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('categories') }}">
+                            <a class="nav-link" href="{{ route('categories.index') }}">
                                 <i class="bi bi-collection"></i> Categories
                             </a>
                         </li>

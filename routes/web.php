@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers;
+use App\Http\Controllers\CategoryController;
 
 Route::get('/', function () {
     return view('admin.dashboard.index');
@@ -15,10 +17,6 @@ Route::get('/list-posts', function () {
     return view('admin.pages.list-posts');
 })->name('list-posts');
 
-Route::get('/categories', function () {
-    return view('admin.pages.categories');
-})->name('categories');
-
 Route::get('/tags', function () {
     return view('admin.pages.tags');
 })->name('tags');
@@ -29,3 +27,5 @@ Route::get('/settings', function () {
 
 
 
+
+Route::resource('categories',CategoryController::class);
