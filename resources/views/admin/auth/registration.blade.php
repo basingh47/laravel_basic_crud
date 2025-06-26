@@ -1,5 +1,7 @@
 @extends('admin.auth.layouts.app')
 
+@section('title', 'Registration')
+
 @section('content')
     <!-- Registration 12 - Bootstrap Brain Component -->
     <section class="py-3 py-md-5 py-xl-8">
@@ -8,7 +10,7 @@
                 <div class="col-12">
                     <div class="mb-5">
                         <h2 class="display-5 fw-bold text-center">Sign up</h2>
-                        <p class="text-center m-0">Already have an account? <a href="#!"
+                        <p class="text-center m-0">Already have an account? <a href="{{ route('login') }}"
                                 class="link-primary text-decoration-none">Sign in</a></p>
                     </div>
                 </div>
@@ -17,34 +19,63 @@
                 <div class="col-12 col-lg-10 col-xl-8">
                     <div class="row gy-5 justify-content-center">
                         <div class="col-12 col-lg-5">
-                            <form action="#!">
+                            <form action="{{ route('registration_store') }}" method="POST" novalidate>
+                                @csrf
                                 <div class="row gy-3 overflow-hidden">
                                     <div class="col-12">
                                         <div class="form-floating mb-3">
-                                            <input type="text" class="form-control border-0 border-bottom rounded-0"
-                                                name="userName" id="userName" placeholder="User Name" required>
-                                            <label for="userName" class="form-label">User Name</label>
+                                            <input type="text" class="form-control border-0 border-bottom rounded-0 @error('userName')
+                                                is-invalid
+                                            @enderror" name="userName" id="userName" placeholder="User Name" value="{{ old('userName') }}" required>
+                                            <label for="userName" class="form-label">Username</label>
+                                            @error('userName')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="col-12">
                                         <div class="form-floating mb-3">
-                                            <input type="email" class="form-control border-0 border-bottom rounded-0"
-                                                name="email" id="email" placeholder="name@example.com" required>
+                                            <input type="email" class="form-control border-0 border-bottom rounded-0 @error('email')
+                                                is-invalid
+                                            @enderror"
+                                                name="email" id="email" placeholder="name@example.com" value="{{ old('email') }}" required>
                                             <label for="email" class="form-label">Email</label>
+                                            @error('email')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="col-12">
                                         <div class="form-floating mb-3">
-                                            <input type="password" class="form-control border-0 border-bottom rounded-0"
-                                                name="password" id="password" value="" placeholder="Password" required>
+                                            <input type="password" class="form-control border-0 border-bottom rounded-0 @error('password')
+                                                is-invalid
+                                            @enderror"
+                                                name="password" id="password" value="" placeholder="Password"  required>
                                             <label for="password" class="form-label">Password</label>
+                                            @error('password')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="col-12">
                                         <div class="form-floating mb-3">
-                                            <input type="password" class="form-control border-0 border-bottom rounded-0"
-                                                name="confirm_password" id="confirm_password" value="" placeholder="Confirm Password" required>
-                                            <label for="confirm_password" class="form-label">Confirm Password</label>
+                                            <input type="password" class="form-control border-0 border-bottom rounded-0 @error('password_confirmation')
+                                                is-invalid
+                                            @enderror"
+                                                name="password_confirmation" id="password_confirmation" value=""
+                                                placeholder="Confirm Password" required>
+                                            <label for="password_confirmation" class="form-label">Confirm Password</label>
+                                            @error('password_confirmation')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="col-12">

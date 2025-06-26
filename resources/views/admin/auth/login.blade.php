@@ -1,5 +1,7 @@
 @extends('admin.auth.layouts.app')
 
+@section('title', 'Login')
+
 @section('content')
     <!-- Registration 12 - Bootstrap Brain Component -->
     <section class="py-3 py-md-5 py-xl-8">
@@ -8,7 +10,7 @@
                 <div class="col-12">
                     <div class="mb-5">
                         <h2 class="display-5 fw-bold text-center">Sign in</h2>
-                        <p class="text-center m-0">Don't have an account? <a href="#!"
+                        <p class="text-center m-0">Don't have an account? <a href="{{ route('registration') }}"
                                 class="link-primary text-decoration-none">Sign up</a></p>
                     </div>
                 </div>
