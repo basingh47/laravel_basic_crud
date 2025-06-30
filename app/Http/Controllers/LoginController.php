@@ -28,4 +28,11 @@ class LoginController extends Controller
 
       return back()->withErrors(['email'=>'Invalid credentials.'])->onlyInput('email');
    }
+
+
+   public function logout(Request $request)
+   {
+      Auth::logout();
+      return redirect()->route('login')->with('message','logout sucess');
+   }
 }
