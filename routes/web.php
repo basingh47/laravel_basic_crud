@@ -10,6 +10,7 @@ Route::post('/registration/store', [RegistrationController::class,'store'])->nam
 
 
 Route::get('/forgot', [ForgotPasswordController::class,'forgot'])->name('forgotpassword');
+Route::post('/reset', [ForgotPasswordController::class,'resetPassword'])->name('resetPassword');
 
 Route::get('/login', [LoginController::class,'index'])->name('login');
 Route::post('/login', [LoginController::class,'login'])->name('login_check');
