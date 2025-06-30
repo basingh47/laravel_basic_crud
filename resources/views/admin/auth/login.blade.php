@@ -62,6 +62,7 @@
                                             <label class="form-check-label text-secondary" for="iAgree">
                                                 Remember Me<a href="#!" class="link-primary text-decoration-none"></a>
                                             </label>
+                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="{{ route('forgotpassword') }}">forgot password</a>
                                         </div>
                                     </div>
                                     <div class="col-12">
