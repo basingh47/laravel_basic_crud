@@ -3,6 +3,11 @@
 @section('title', 'Login')
 
 @section('content')
+    @if (session('message'))
+        <div class="alert alert-primary" role="alert">
+            {{ session('message') }}
+        </div>
+    @endif
     <!-- Registration 12 - Bootstrap Brain Component -->
     <section class="py-3 py-md-5 py-xl-8">
         <div class="container">
@@ -19,20 +24,35 @@
                 <div class="col-12 col-lg-10 col-xl-8">
                     <div class="row gy-5 justify-content-center">
                         <div class="col-12 col-lg-5">
-                            <form action="#!">
+                            <form action="{{ route('login_check') }}" method="post">
+                                @csrf
                                 <div class="row gy-3 overflow-hidden">
                                     <div class="col-12">
                                         <div class="form-floating mb-3">
-                                            <input type="email" class="form-control border-0 border-bottom rounded-0"
-                                                name="email" id="email" placeholder="name@example.com" required>
+                                            <input type="email" class="form-control border-0 border-bottom rounded-0 @error('email')
+                                                is-invalid
+                                            @enderror" name="email" id="email" placeholder="name@example.com"
+                                                value="{{ old('email') }}" required>
                                             <label for="email" class="form-label">Email</label>
+                                            @error('email')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="col-12">
                                         <div class="form-floating mb-3">
-                                            <input type="password" class="form-control border-0 border-bottom rounded-0"
-                                                name="password" id="password" value="" placeholder="Password" required>
+                                            <input type="password" class="form-control border-0 border-bottom rounded-0 @error('password')
+                                                is-invalid
+                                            @enderror" name="password" id="password" value="" placeholder="Password"
+                                                required>
                                             <label for="password" class="form-label">Password</label>
+                                            @error('password')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="col-12">
@@ -40,7 +60,7 @@
                                             <input class="form-check-input" type="checkbox" value="" name="iAgree"
                                                 id="iAgree" required>
                                             <label class="form-check-label text-secondary" for="iAgree">
-                                                 Remember Me<a href="#!" class="link-primary text-decoration-none"></a>
+                                                Remember Me<a href="#!" class="link-primary text-decoration-none"></a>
                                             </label>
                                         </div>
                                     </div>

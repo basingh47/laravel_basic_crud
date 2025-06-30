@@ -9,4 +9,10 @@ Route::post('/registration/store', [RegistrationController::class,'store'])->nam
 
 
 Route::get('/login', [LoginController::class,'index'])->name('login');
+Route::post('/login', [LoginController::class,'login'])->name('login_check');
 
+
+
+Route::get('/dashboard', function(){
+    return view('dashboard');
+})->name('dashboard');
