@@ -9,7 +9,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('list-posts') }}">
+                            <a class="nav-link" href="{{ route('post.index') }}">
                                 <i class="bi bi-file-earmark-post"></i> Posts
                             </a>
                         </li>

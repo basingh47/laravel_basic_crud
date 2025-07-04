@@ -6,7 +6,7 @@
         <div class="alert alert-success">{{ session('message') }}</div>
     @endif
     <!-- Create Post Form (place inside your modal body) -->
-    <form method="POST" action="{{ route('categories.update',['category'=>$category->category_id]) }}">
+    <form method="POST" action="{{ route('categories.update',['category'=>$category->id]) }}">
         @csrf
         @method('PUT')
         <!-- Post Title -->

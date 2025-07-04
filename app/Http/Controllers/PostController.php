@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use App\Models\Category;
 
 class PostController extends Controller
 {
@@ -12,7 +13,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.pages.list-posts');
     }
 
     /**
@@ -20,7 +21,9 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Category::pluck('category_name','id');
+        
+        return view('admin.pages.create-post', compact('categories'));
     }
 
     /**
@@ -28,7 +31,7 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
     }
 
     /**

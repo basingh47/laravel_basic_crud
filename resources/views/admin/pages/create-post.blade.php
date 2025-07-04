@@ -1,46 +1,44 @@
 @extends('admin.layouts.app')
-
+{{-- @dd($categories); --}}
 @section('content')
     <!-- Create Post Form (place inside your modal body) -->
-    <form class="needs-validation" novalidate>
+    <form action="{{ route('post.store') }}" method="POST" class="needs-validation" novalidate>
         <!-- Post Title -->
+        @csrf
         <div class="mb-3">
             <label for="postTitle" class="form-label">Post Title *</label>
-            <input type="text" class="form-control form-control-lg" id="postTitle" placeholder="Enter post title" required>
-            <div class="invalid-feedback">
-                Please provide a post title.
-            </div>
+            <input type="text" name="postTitle" class="form-control form-control-lg" id="postTitle"
+                placeholder="Enter post title" required>
+            @error('postTitle')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @enderror
         </div>
-
-        <!-- Slug (auto-generated from title) -->
-        {{-- <div class="mb-3">
-            <label for="postSlug" class="form-label">URL Slug</label>
-            <div class="input-group">
-                <span class="input-group-text">/blog/</span>
-                <input type="text" class="form-control" id="postSlug" placeholder="post-url-slug" readonly>
-                <button class="btn btn-outline-secondary" type="button" id="editSlug">
-                    <i class="bi bi-pencil"></i> Edit
-                </button>
-            </div>
-        </div> --}}
-
         <!-- Category & Tags -->
         <div class="row g-3 mb-3">
             <div class="col-md-6">
                 <label for="postCategory" class="form-label">Category *</label>
-                <select class="form-select" id="postCategory" required>
+                <select name="postCategory" class="form-select" id="postCategory" required>
                     <option value="" selected disabled>Select category</option>
-                    <option value="technology">Technology</option>
-                    <option value="design">Design</option>
-                    <option value="business">Business</option>
+                    @foreach ($categories as $id => $categoryName)
+                        <option value="{{ $id }}">{{ $categoryName }}</option>
+                    @endforeach
                 </select>
-                <div class="invalid-feedback">
-                    Please select a category.
-                </div>
+                @error('postCategory')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
             </div>
             <div class="col-md-6">
                 <label for="postTags" class="form-label">Tags</label>
-                <input class="form-control" id="postTags" placeholder="Add tags (comma separated)">
+                <input name="postTags" class="form-control" id="postTags" placeholder="Add tags (comma separated)">
+                @error('postTags')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
             </div>
         </div>
 
@@ -48,7 +46,7 @@
         <div class="mb-3">
             <label for="featuredImage" class="form-label">Featured Image</label>
             <div class="image-upload-container border rounded p-3 text-center">
-                <input type="file" class="d-none" id="featuredImage" accept="image/*">
+                <input name="featuredImage" type="file" class="d-none" id="featuredImage" accept="image/*">
                 <img src="placeholder-image.jpg" id="imagePreview" class="img-fluid mb-2"
                     style="max-height: 200px; display: none;">
                 <button type="button" class="btn btn-outline-primary"
@@ -57,51 +55,37 @@
                 </button>
                 <div class="form-text">Recommended size: 1200x630 pixels</div>
             </div>
+            @error('featuredImage')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @enderror
         </div>
 
         <!-- Post Content -->
         <div class="mb-3">
             <label for="postContent" class="form-label">Content *</label>
-            <textarea class="form-control" id="postContent" rows="8" required></textarea>
-            <div class="invalid-feedback">
-                Please provide post content.
-            </div>
-        </div>
-
-        <!-- SEO Fields -->
-        {{-- <div class="accordion mb-3" id="seoAccordion">
-            <div class="accordion-item">
-                <h2 class="accordion-header">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#seoFields">
-                        <i class="bi bi-search me-2"></i> SEO Settings
-                    </button>
-                </h2>
-                <div id="seoFields" class="accordion-collapse collapse" data-bs-parent="#seoAccordion">
-                    <div class="accordion-body">
-                        <div class="mb-3">
-                            <label for="metaTitle" class="form-label">Meta Title</label>
-                            <input type="text" class="form-control" id="metaTitle" placeholder="Title for search engines">
-                        </div>
-                        <div class="mb-3">
-                            <label for="metaDescription" class="form-label">Meta Description</label>
-                            <textarea class="form-control" id="metaDescription" rows="3"
-                                placeholder="Description for search engines"></textarea>
-                        </div>
-                    </div>
+            <textarea name="postContent" class="form-control" id="postContent" rows="8" required></textarea>
+            @error('featuredImage')
+                <div class="invalid-feedback">
+                    {{ $message }}
                 </div>
-            </div>
-        </div> --}}
-
+            @enderror
+        </div>
         <!-- Status & Publish Options -->
         <div class="row g-3 mb-3">
             <div class="col-md-6">
                 <label for="postStatus" class="form-label">Status *</label>
-                <select class="form-select" id="postStatus" required>
+                <select name="postStatus" class="form-select" id="postStatus" required>
                     <option value="draft">Draft</option>
                     <option value="published" selected>Published</option>
                     <option value="scheduled">Scheduled</option>
                 </select>
+                @error('postStatus')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
             </div>
             <div class="col-md-6" id="scheduleDateContainer" style="display: none;">
                 <label for="publishDate" class="form-label">Publish Date</label>

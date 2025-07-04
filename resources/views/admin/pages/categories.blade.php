@@ -30,11 +30,11 @@
                                 <td>{{$item->category_name}}</td>
                                 <td>{{$item->created_at}}</td>
                                 <td>
-                                    <form action="{{route('categories.edit', ['category' => $item->category_id])}}" method="GET">
+                                    <form action="{{route('categories.edit', ['category' => $item->id])}}" method="GET">
                                         @csrf
                                         <button class="btn btn-sm btn-outline-secondary"><i class="bi bi-pencil"></i></button>
                                     </form>
-                                    <form action="{{route('categories.destroy', ['category' => $item->category_id])}}"
+                                    <form action="{{route('categories.destroy', ['category' => $item->id])}}"
                                         method="POST">
                                         @csrf
                                         @method('DELETE')
