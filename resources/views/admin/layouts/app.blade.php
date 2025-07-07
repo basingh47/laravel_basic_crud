@@ -75,18 +75,7 @@
 
                 @include('admin.partials.header')
 
-                <!-- Stats Cards -->
-                <div class="row mb-4">
-                    <div class="col-md-4">
-                        <x-admin.card label="Total Posts" count="128" icon="bi-file-earmark-post" />
-                    </div>
-                    <div class="col-md-4">
-                        <x-admin.card label="Categories" count="12" icon="bi-collection" />
-                    </div>
-                    <div class="col-md-4">
-                        <x-admin.card label="Tags" count="128" icon="bi-tags" />
-                    </div>
-                </div>
+                @yield('stats')
 
                 @yield('content')
 

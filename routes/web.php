@@ -8,16 +8,8 @@ use App\Http\Controllers\PostController;
 
 Route::get('/', function () {
     return view('admin.dashboard.index');
-});
+})->name('dashboard');
 
-Route::get('/create-post', function () {
-    return view('admin.pages.create-post');
-})->name('create-post');
-
-
-Route::get('/list-posts', function () {
-    return view('admin.pages.list-posts');
-})->name('list-posts');
 
 Route::get('/tags', function () {
     return view('admin.pages.tags');
@@ -26,8 +18,6 @@ Route::get('/tags', function () {
 Route::get('/settings', function () {
     return view('admin.pages.settings');
 })->name('settings');
-
-
 
 
 Route::resource('categories',CategoryController::class);

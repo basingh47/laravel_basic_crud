@@ -14,8 +14,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        $postdata = Post::select('id', 'title', 'status', 'created_at')->get();
-        return view('admin.pages.list-posts', compact('postdata'));
+        $postdata = Post::select('id', 'title', 'status', 'created_at')->paginate(5);
+        return view('admin.pages.post.posts-list', compact('postdata'));
     }
 
     /**
@@ -25,7 +25,7 @@ class PostController extends Controller
     {
         $categories = Category::pluck('category_name', 'id');
 
-        return view('admin.pages.create-post', compact('categories'));
+        return view('admin.pages.post.create-post', compact('categories'));
     }
 
     /**
@@ -36,7 +36,7 @@ class PostController extends Controller
         $data = $request->validated();
         if ($request->hasFile('featuredImage')) {
             $file = $request->file('featuredImage');
-            $filename = time() . '_' . uniqid() . $file->getClientOriginalExtension();
+                        $filename = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
             $path = $file->storeAs('uploads/posts', $filename, 'public');
             $data['featuredImage'] = 'storage/' . $path;
         }
@@ -55,7 +55,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        //
+        return view('admin.pages.post.post-view',compact('post'));
     }
 
     /**
@@ -64,7 +64,7 @@ class PostController extends Controller
     public function edit(Post $post)
     {
         $categories = Category::pluck('category_name', 'id');
-        return view('admin.pages.edit-post', compact('post', 'categories'));
+        return view('admin.pages.post.edit-post', compact('post', 'categories'));
     }
 
     /**

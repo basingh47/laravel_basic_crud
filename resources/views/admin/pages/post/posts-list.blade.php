@@ -1,6 +1,5 @@
 @extends('admin.layouts.app')
-
-
+@section('title', 'Post Section')
 @section('content')
     @if (session('success'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -27,31 +26,41 @@
                         <tr>
                             <th>Post Title </th>
                             <th>Date of Create</th>
+                            <th>Status</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($postdata as $data)
-                             <tr>
+                            <tr>
                                 <td>{{$data->title}}</td>
                                 <td>{{$data->created_at}}</td>
-                                <td>{{$data->status}}</td>
+                                <td><span class="badge bg-info">{{ $data->status }}</span></td>
                                 <td>
-                                    <form action="{{route('post.edit', ['post' => $data->id])}}" method="GET">
-                                        @csrf
-                                        <button class="btn btn-sm btn-outline-secondary"><i class="bi bi-pencil"></i></button>
-                                    </form>
-                                    <form action="{{route('post.destroy', ['post' => $data->id])}}"
-                                        method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
-                                    </form>
+                                    <div class="d-flex gap-2">
+                                         <form action="{{route('post.show', ['post' => $data->id])}}" method="GET">
+                                            @csrf
+                                            <button class="btn btn-sm btn-outline-primary"><i class="bi bi-eye"></i></button>
+                                        </form>
+                                        <form action="{{route('post.edit', ['post' => $data->id])}}" method="GET">
+                                            @csrf
+                                            <button class="btn btn-sm btn-outline-secondary"><i
+                                                    class="bi bi-pencil"></i></button>
+                                        </form>
+                                        <form action="{{route('post.destroy', ['post' => $data->id])}}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
+                                        </form>
+                                    </div>
                                 </td>
                             </tr>
                         @endforeach
+                        
                     </tbody>
+                   
                 </table>
+                 {{ $postdata->links('pagination::bootstrap-5') }}
             </div>
         </div>
     </div>

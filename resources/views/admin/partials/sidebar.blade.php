@@ -4,7 +4,7 @@
                     <h4 class="text-white mb-4">Blogger Admin</h4>
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a class="nav-link active" href="#">
+                            <a class="nav-link active" href="{{ route('dashboard') }}">
                                 <i class="bi bi-speedometer2"></i> Dashboard
                             </a>
                         </li>

@@ -1,13 +1,26 @@
 @extends('admin.layouts.app')
 
+@section('stats')
+
+    <div class="row mb-4">
+        <div class="col-md-4">
+            <x-admin.card label="Total Posts" count="128" icon="bi-file-earmark-post" />
+        </div>
+        <div class="col-md-4">
+            <x-admin.card label="Categories" count="12" icon="bi-collection" />
+        </div>
+        <div class="col-md-4">
+            <x-admin.card label="Tags" count="128" icon="bi-tags" />
+        </div>
+    </div>
+
+@endsection
+
 @section('content')
     <!-- Recent Posts -->
     <div class="card mb-4">
         <div class="card-header d-flex justify-content-between align-items-center">
             <h5 class="mb-0">Recent Posts</h5>
-            <a href="{{ route('create-post') }}" class="btn btn-sm btn-primary">
-                Create New
-            </a>
         </div>
         <div class="card-body">
             <div class="table-responsive">
