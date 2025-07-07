@@ -1,10 +1,11 @@
+
 @extends('admin.layouts.app')
 {{-- @dd($categories); --}}
 @section('content')
     <!-- Create Post Form (place inside your modal body) -->
-    <form action="{{ route('post.store') }}" method="POST" class="needs-validation" novalidate enctype="multipart/form-data">
+    <form action="{{ route('post.update',['post'=>$post->id]) }}" method="POST" class="needs-validation" novalidate enctype="multipart/form-data">
     @csrf
-
+    @method('PUT')
     <!-- Post Title -->
     <div class="mb-3">
         <label for="postTitle" class="form-label">Post Title *</label>
@@ -12,7 +13,7 @@
             class="form-control form-control-lg @error('postTitle') is-invalid @enderror"
             id="postTitle"
             placeholder="Enter post title"
-            value="{{ old('postTitle') }}"
+            value="{{ old('postTitle') ?? $post->title }}"
             required>
         @error('postTitle')
             <div class="invalid-feedback">
@@ -30,7 +31,7 @@
                 id="postCategory" required>
                 <option value="" disabled {{ old('postCategory') ? '' : 'selected' }}>Select category</option>
                 @foreach ($categories as $id => $categoryName)
-                    <option value="{{ $id }}" {{ old('postCategory') == $id ? 'selected' : '' }}>
+                    <option value="{{ $id }}" {{ old('postCategory') ?? $post->category_id == $id ? 'selected' : '' }}>
                         {{ $categoryName }}
                     </option>
                 @endforeach
@@ -87,7 +88,7 @@
             class="form-control @error('postContent') is-invalid @enderror"
             id="postContent"
             rows="8"
-            required>{{ old('postContent') }}</textarea>
+            required>{{ old('postContent') ?? $post->post_content }}</textarea>
         @error('postContent')
             <div class="invalid-feedback">
                 {{ $message }}
@@ -103,9 +104,9 @@
                 class="form-select @error('postStatus') is-invalid @enderror"
                 id="postStatus" required>
                 <option value="" disabled {{ old('postStatus') ? '':'selected'  }}>Select Status</option>
-                <option value="Draft" {{ old('postStatus') == 'Draft' ? 'selected' : '' }}>Draft</option>
-                <option value="Publish" {{ old('postStatus') == 'publish' ? 'selected' : '' }} >Published</option>
-                <option value="Scheduled" {{ old('postStatus') == 'Scheduled' ? 'selected' : '' }}>Scheduled</option>
+                <option value="Draft" {{ old('postStatus') ?? $post->status == 'Draft' ? 'selected' : '' }}>Draft</option>
+                <option value="Publish" {{ old('postStatus') ?? $post->status == 'publish' ? 'selected' : '' }} >Published</option>
+                <option value="Scheduled" {{ old('postStatus') ?? $post->status == 'Scheduled' ? 'selected' : '' }}>Scheduled</option>
             </select>
             @error('postStatus')
                 <div class="invalid-feedback">
@@ -122,7 +123,7 @@
         </button>
         <div>
             <button type="submit" class="btn btn-success">
-                <i class="bi bi-send-check"></i> Publish
+                <i class="bi bi-send-check"></i> Update
             </button>
         </div>
     </div>

@@ -8,7 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class Post extends Model
 {
     use HasFactory;
-    
+
+    protected $fillable = [
+        'title',
+        'category_id',
+        'post_content',
+        'status',
+        'image_path',
+    ];
+
+
+
     public function tags()
     {
         return $this->belongsToMany(Tag::class)->withTimestamps();

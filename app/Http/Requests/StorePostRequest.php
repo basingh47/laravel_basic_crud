@@ -27,7 +27,7 @@ class StorePostRequest extends FormRequest
             'postTags' => 'nullable|string',
             'featuredImage' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'postContent' => 'required|string',
-            'postStatus' => 'required|in:draft,published,scheduled',
+            'postStatus' => 'required|in:Draft,Publish,Scheduled',
         ];
     }
 }

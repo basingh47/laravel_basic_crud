@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
-use Illuminate\Http\Request;
 use App\Models\Category;
+use Illuminate\Http\Request;
+use App\Http\Requests\StorePostRequest;
 
 class PostController extends Controller
 {
@@ -13,7 +14,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        return view('admin.pages.list-posts');
+        $postdata = Post::select('id', 'title', 'status', 'created_at')->get();
+        return view('admin.pages.list-posts', compact('postdata'));
     }
 
     /**
@@ -21,17 +23,31 @@ class PostController extends Controller
      */
     public function create()
     {
-        $categories = Category::pluck('category_name','id');
-        
+        $categories = Category::pluck('category_name', 'id');
+
         return view('admin.pages.create-post', compact('categories'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StorePostRequest $request)
     {
-        
+        $data = $request->validated();
+        if ($request->hasFile('featuredImage')) {
+            $file = $request->file('featuredImage');
+            $filename = time() . '_' . uniqid() . $file->getClientOriginalExtension();
+            $path = $file->storeAs('uploads/posts', $filename, 'public');
+            $data['featuredImage'] = 'storage/' . $path;
+        }
+        Post::create([
+            'title' => $data['postTitle'],
+            'image_path' => $data['featuredImage'] ?? null,
+            'post_content' => $data['postContent'],
+            'category_id' => $data['postCategory'],
+            'status' => $data['postStatus'],
+        ]);
+        return redirect()->route('post.index')->with('success', 'Post created successfully!');
     }
 
     /**
@@ -47,7 +63,8 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+        $categories = Category::pluck('category_name', 'id');
+        return view('admin.pages.edit-post', compact('post', 'categories'));
     }
 
     /**
@@ -55,7 +72,33 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        //
+        $request->validate([
+            'postTitle' => 'required|string|max:255',
+            'postCategory' => 'required|exists:categories,id',
+            'postTags' => 'nullable|string',
+            'featuredImage' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'postContent' => 'required|string',
+            'postStatus' => 'required|in:Draft,Publish,Scheduled',
+        ]);
+
+        $data = $request->all();
+
+        if ($request->hasFile('featuredImage')) {
+            $file = $request->file('featuredImage');
+            $filename = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+            $path = $file->storeAs('uploads/posts', $filename, 'public');
+            $data['featuredImage'] = 'storage/' . $path;
+        }
+
+        $post->update([
+            'title' => $data['postTitle'],
+            'image_path' => $data['featuredImage'] ?? $post->image_path,
+            'post_content' => $data['postContent'],
+            'category_id' => $data['postCategory'],
+            'status' => $data['postStatus'],
+        ]);
+
+        return redirect()->route('post.index')->with('success', 'Post Update successfully!');
     }
 
     /**
@@ -63,6 +106,8 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        $post->tags()->detach(); // removes entries from post_tag table
+        $post->delete();
+        return redirect()->route('post.index')->with('success', 'Post Delete successfully!');
     }
 }
