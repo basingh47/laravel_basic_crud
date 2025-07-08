@@ -32,35 +32,39 @@
                     </thead>
                     <tbody>
                         @foreach ($postdata as $data)
-                            <tr>
-                                <td>{{$data->title}}</td>
-                                <td>{{$data->created_at}}</td>
-                                <td><span class="badge bg-info">{{ $data->status }}</span></td>
-                                <td>
-                                    <div class="d-flex gap-2">
-                                         <form action="{{route('post.show', ['post' => $data->id])}}" method="GET">
-                                            @csrf
-                                            <button class="btn btn-sm btn-outline-primary"><i class="bi bi-eye"></i></button>
-                                        </form>
-                                        <form action="{{route('post.edit', ['post' => $data->id])}}" method="GET">
-                                            @csrf
-                                            <button class="btn btn-sm btn-outline-secondary"><i
-                                                    class="bi bi-pencil"></i></button>
-                                        </form>
-                                        <form action="{{route('post.destroy', ['post' => $data->id])}}" method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
-                                        </form>
-                                    </div>
-                                </td>
-                            </tr>
+                                <tr>
+                                    <td>{{$data->title}}</td>
+                                    <td>{{$data->created_at}}</td>
+                                    <td><span class="badge @if($data->status == 'Draft') bg-secondary
+                                    @elseif($data->status == 'Publish') bg-success
+                                    @elseif($data->status == 'Scheduled') bg-info
+                                    @else bg-dark
+                                    @endif">{{ $data->status }}</span></td>
+                                    <td>
+                                        <div class="d-flex gap-2">
+                                            <form action="{{route('post.show', ['post' => $data->id])}}" method="GET">
+                                                @csrf
+                                                <button class="btn btn-sm btn-outline-primary"><i class="bi bi-eye"></i></button>
+                                            </form>
+                                            <form action="{{route('post.edit', ['post' => $data->id])}}" method="GET">
+                                                @csrf
+                                                <button class="btn btn-sm btn-outline-secondary"><i
+                                                        class="bi bi-pencil"></i></button>
+                                            </form>
+                                            <form action="{{route('post.destroy', ['post' => $data->id])}}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
                         @endforeach
-                        
+
                     </tbody>
-                   
+
                 </table>
-                 {{ $postdata->links('pagination::bootstrap-5') }}
+                {{ $postdata->links('pagination::bootstrap-5') }}
             </div>
         </div>
     </div>

@@ -11,7 +11,11 @@
 
             <p class="text-muted">
                 Category: <strong>{{ $post->category->category_name ?? 'Uncategorized' }}</strong> |
-                Status: <span class="badge bg-info">{{ $post->status }}</span> |
+                Status: <span class="badge @if($post->status == 'Draft') bg-secondary
+                @elseif($post->status == 'Publish') bg-success
+                @elseif($post->status == 'Scheduled') bg-info
+                @else bg-dark
+                @endif">{{ $post->status }}</span> |
                 Created: {{ $post->created_at->format('d M Y, h:i A') }}
             </p>
 
