@@ -13,9 +13,9 @@
                 Category: <strong>{{ $post->category->category_name ?? 'Uncategorized' }}</strong> |
                 Status: <span class="badge @if($post->status == 'Draft') bg-secondary
                 @elseif($post->status == 'Publish') bg-success
-                @elseif($post->status == 'Scheduled') bg-info
-                @else bg-dark
-                @endif">{{ $post->status }}</span> |
+                    @elseif($post->status == 'Scheduled') bg-info
+                            @else bg-dark
+                        @endif">{{ $post->status }}</span> |
                 Created: {{ $post->created_at->format('d M Y, h:i A') }}
             </p>
 
@@ -30,6 +30,15 @@
                 <div class="border rounded p-3 bg-light">
                     {!! nl2br(e($post->post_content)) !!}
                 </div>
+            </div>
+
+        </div>
+        <div class="card-footer">
+            <div>
+                <h6>Tags</h6>
+                @foreach ($post->tags as $tag)
+                    <span class="badge bg-primary">{{ $tag->name }}</span>
+                @endforeach
             </div>
         </div>
     </div>

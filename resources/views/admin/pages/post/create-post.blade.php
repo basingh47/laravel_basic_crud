@@ -112,7 +112,7 @@
 
                 <!-- Form Actions -->
                 <div class="d-flex justify-content-between pt-3 border-top">
-                    <a href="{{ url()->previous() }}" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                    <a href="{{ url()->previous() }}" class="btn btn-outline-secondary" >
                         <i class="bi bi-x-lg"></i> Cancel
                     </a>
                     <div>

@@ -1,6 +1,5 @@
 @extends('admin.layouts.app')
-
-
+@section('title', 'Category Section')
 @section('content')
 
     @if (session('message'))
@@ -10,7 +9,7 @@
         <div class="card-header d-flex justify-content-between align-items-center">
             <h5 class="mb-0">Categories List</h5>
             <a href="{{ route('categories.create') }}" class="btn btn-sm btn-primary">
-                Create New categories
+                Create categories
             </a>
         </div>
         <div class="card-body">
@@ -19,7 +18,6 @@
                     <thead>
                         <tr>
                             <th>Categories Name</th>
-                            <th>Date of Create</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -28,23 +26,25 @@
                         @foreach ($categoryData as $item)
                             <tr>
                                 <td>{{$item->category_name}}</td>
-                                <td>{{$item->created_at}}</td>
                                 <td>
-                                    <form action="{{route('categories.edit', ['category' => $item->id])}}" method="GET">
-                                        @csrf
-                                        <button class="btn btn-sm btn-outline-secondary"><i class="bi bi-pencil"></i></button>
-                                    </form>
-                                    <form action="{{route('categories.destroy', ['category' => $item->id])}}"
-                                        method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
-                                    </form>
+                                    <div class="d-flex gap-2">
+                                        <form action="{{route('categories.edit', ['category' => $item->id])}}" method="GET">
+                                            @csrf
+                                            <button class="btn btn-sm btn-outline-secondary"><i
+                                                    class="bi bi-pencil"></i></button>
+                                        </form>
+                                        <form action="{{route('categories.destroy', ['category' => $item->id])}}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
+                                        </form>
+                                    </div>
                                 </td>
                             </tr>
                         @endforeach
                     </tbody>
                 </table>
+                {{ $categoryData->links('pagination::bootstrap-5') }}
             </div>
         </div>
     </div>

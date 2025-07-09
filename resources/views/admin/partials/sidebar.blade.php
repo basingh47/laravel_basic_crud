@@ -18,11 +18,11 @@
                                 <i class="bi bi-collection"></i> Categories
                             </a>
                         </li>
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <a class="nav-link" href="{{ route('tags') }}">
                                 <i class="bi bi-tags"></i> Tags
                             </a>
-                        </li>
+                        </li> --}}
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('settings') }}">
                                 <i class="bi bi-gear"></i> Settings

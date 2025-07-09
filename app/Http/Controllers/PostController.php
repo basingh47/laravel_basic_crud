@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Tag;
 use App\Models\Post;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Requests\StorePostRequest;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -34,28 +36,50 @@ class PostController extends Controller
     public function store(StorePostRequest $request)
     {
         $data = $request->validated();
+
         if ($request->hasFile('featuredImage')) {
             $file = $request->file('featuredImage');
-                        $filename = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+            $filename = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
             $path = $file->storeAs('uploads/posts', $filename, 'public');
             $data['featuredImage'] = 'storage/' . $path;
         }
-        Post::create([
+
+        // Save post and capture the instance
+        $post = Post::create([
             'title' => $data['postTitle'],
             'image_path' => $data['featuredImage'] ?? null,
             'post_content' => $data['postContent'],
             'category_id' => $data['postCategory'],
             'status' => $data['postStatus'],
         ]);
+
+        // Handle tags
+        if ($request->filled('postTags')) {
+            $tags = explode(',', $request->input('postTags'));
+            $tagIds = [];
+
+            foreach ($tags as $tag) {
+                $cleanTag = trim($tag);
+                if ($cleanTag === '')
+                    continue;
+
+                $tagModel = Tag::firstOrCreate(['name' => $cleanTag]);
+                $tagIds[] = $tagModel->id;
+            }
+
+            $post->tags()->attach($tagIds);
+        }
+
         return redirect()->route('post.index')->with('success', 'Post created successfully!');
     }
+
 
     /**
      * Display the specified resource.
      */
     public function show(Post $post)
     {
-        return view('admin.pages.post.post-view',compact('post'));
+        return view('admin.pages.post.post-view', compact('post'));
     }
 
     /**
@@ -64,7 +88,9 @@ class PostController extends Controller
     public function edit(Post $post)
     {
         $categories = Category::pluck('category_name', 'id');
-        return view('admin.pages.post.edit-post', compact('post', 'categories'));
+        $post->load('tags');  //Eager loads the tags relationship on an already-loaded post
+        $tags = $post->tags->pluck('name')->implode(',');
+        return view('admin.pages.post.edit-post', compact('post', 'categories', 'tags'));
     }
 
     /**
@@ -84,6 +110,9 @@ class PostController extends Controller
         $data = $request->all();
 
         if ($request->hasFile('featuredImage')) {
+            if ($post->image_path && Storage::disk('public')->exists(str_replace('storage/', '', $post->image_path))) {
+                Storage::disk('public')->delete(str_replace('storage/', '', $post->image_path));
+            }
             $file = $request->file('featuredImage');
             $filename = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
             $path = $file->storeAs('uploads/posts', $filename, 'public');
@@ -97,6 +126,20 @@ class PostController extends Controller
             'category_id' => $data['postCategory'],
             'status' => $data['postStatus'],
         ]);
+
+        if ($request->filled('postTags')) {
+            $tags = explode(',', $request->input('postTags'));
+            $tagIds = [];
+
+            foreach ($tags as $tag) {
+                $cleanTag = trim($tag);
+                $tagModel = Tag::firstOrCreate(['name' => $cleanTag]);
+                $tagIds[] = $tagModel->id;
+            }
+            $post->tags()->sync($tagIds);
+        } else {
+            $post->tags()->detach();
+        }
 
         return redirect()->route('post.index')->with('success', 'Post Update successfully!');
     }

@@ -14,8 +14,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categoryData = Category::all();
-        return view("admin.pages.categories", compact('categoryData'));
+        $categoryData = Category::paginate(3);
+        return view("admin.pages.categories.categories-list", compact('categoryData'));
     }
 
     /**
@@ -23,7 +23,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view("admin.pages.create-categories");
+        return view("admin.pages.categories.create-categories");
     }
 
     /**
@@ -51,7 +51,7 @@ class CategoryController extends Controller
     public function edit(Category $category)
     {
 
-        return view("admin.pages.edit-categories", compact("category"));
+        return view("admin.pages.categories.edit-categories", compact("category"));
     }
 
     /**
