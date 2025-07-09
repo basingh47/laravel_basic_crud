@@ -24,8 +24,6 @@ class ForgotPasswordController extends Controller
                 ->subject('SMTP Test');
         });
 
-        dd("mail sent");
-
-
+        return redirect()->back()->with('success','Email is Send with Reset Link Check');
     }
 }

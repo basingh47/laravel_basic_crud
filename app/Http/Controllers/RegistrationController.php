@@ -13,8 +13,9 @@ class RegistrationController extends Controller
     }
 
     public function store(RegistrationRequest $request)
-    {
-        $user = User::create(['username'=>$request->validated('userName'),'email'=>$request->validated('email'),'password'=>$request->validated('password')]);
-        return redirect()->route("login")->with("message","Registration Sucess");
+    {  
+        $user = User::create(
+            ['username'=>$request->validated('userName'),'email'=>$request->validated('email'),'password'=>$request->validated('password')]);
+        return redirect()->route("login")->with('success', 'Registration successful!');
     }
 }
