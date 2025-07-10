@@ -129,7 +129,7 @@
                         </div>
                         <div class="col-12 col-lg-5 d-flex align-items-center">
                             <div class="d-flex gap-3 flex-column w-100 ">
-                                <a href="#!" class="btn bsb-btn-2xl btn-outline-dark rounded-0 d-flex align-items-center">
+                                <a href="{{ route('oauth.google') }}" class="btn bsb-btn-2xl btn-outline-dark rounded-0 d-flex align-items-center">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                         class="bi bi-google text-danger" viewBox="0 0 16 16">
                                         <path
